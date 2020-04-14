@@ -1,3 +1,12 @@
+#******************************************************************************
+# ESPHome based "dimmer"
+#   Use a rotary encoder connected to ESP32 as a dimmer for a light in Home Assistant.
+#
+# Function:
+#   1. Turn the encoder, increments in steps of 1 from 0-100 which represent light brightness in percent
+#
+# Code by Patrick Felstead
+#******************************************************************************
 esphome:
   name: rotary_encoder_set_brightness_simple
   platform: ESP32
