@@ -1,7 +1,16 @@
+#******************************************************************************
+# ESPHome based "dimmer" - with fine control at low brightness
+#   Use a rotary encoder connected to ESP32 as a dimmer for a light in Home Assistant.
+#
+# Function:
+#   1. Turn the encoder, sets HA light brightness in steps of 2% from 0-20%, then 10% steps from 20-100%
+#
+# Code by Patrick Felstead
+#******************************************************************************
 esphome:
   name: rotary_encoder_set_brightness_fine
   platform: ESP32
-  board: esp32doit-devkit-v1
+  board: esp32dev
 
 wifi:
   ssid: !secret wifi_ssid
@@ -23,7 +32,7 @@ ota:
 globals:
   - id: encoder_light_brightness
     type: int
-    initial_value: '5'
+    initial_value: '0'
   - id: multiplier
     type: int
     initial_value: '2'
