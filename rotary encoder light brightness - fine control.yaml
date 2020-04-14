@@ -1,5 +1,5 @@
 esphome:
-  name: rotary_encoder_set_brightness
+  name: rotary_encoder_set_brightness_fine
   platform: ESP32
   board: esp32doit-devkit-v1
 
