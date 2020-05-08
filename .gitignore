@@ -1,0 +1,8 @@
+# Folders
+photos/
+
+# GIMP image files
+*.xcf
+
+# MacOS files
+.DS_Store
