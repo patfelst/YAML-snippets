@@ -1,0 +1,131 @@
+#******************************************************************************
+# This is a simple home assistant automation that is triggered when a rotary
+# encoder from ESPHome is at a specific value, in this case "3"
+#******************************************************************************
+alias: Rotary encoder 1
+description: ""
+trigger:
+  - platform: template
+    value_template: |
+      {% set state = states('sensor.rotary_encoder_rotary_encoder') %}
+      {% if is_number(state) and state | float == 3 %}
+        {{ true }}
+      {% endif %}
+condition: []
+action:
+  - service: light.turn_on
+    data:
+      rgb_color:
+        - 189
+        - 5
+        - 240
+    target:
+      entity_id: light.workshop_rgb_light
+mode: single
+
+
+#******************************************************************************
+# This is a more complex home assistant automation that is triggered whenever
+# the rotary encoder changes value. 
+# The actio then uses a series of "choose" decisions to set an RGB lightbulb
+# to colours of the rainbow between 1-7. When encoder = 0 the light is turned off
+# when encoder is > 7 it sets the bulb to white.
+#******************************************************************************
+alias: Rotary encoder 2
+mode: single
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.rotary_encoder_rotary_encoder
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 0.0 }}"
+        sequence:
+          - service: light.turn_off
+            data: {}
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 1.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: red
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 2.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: orange
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 3.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: yellow
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 4.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: green
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 5.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: blue
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 6.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: indigo
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float == 7.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: violet
+            target:
+              entity_id: light.workshop_rgb_light
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state | float > 7.0 }}"
+        sequence:
+          - service: light.turn_on
+            data:
+              color_name: white
+            target:
+              entity_id: light.workshop_rgb_light
