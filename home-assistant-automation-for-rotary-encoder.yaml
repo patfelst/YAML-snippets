@@ -27,7 +27,7 @@ mode: single
 #******************************************************************************
 # This is a more complex home assistant automation that is triggered whenever
 # the rotary encoder changes value. 
-# The actio then uses a series of "choose" decisions to set an RGB lightbulb
+# The action then uses a series of "choose" decisions to set an RGB lightbulb
 # to colours of the rainbow between 1-7. When encoder = 0 the light is turned off
 # when encoder is > 7 it sets the bulb to white.
 #******************************************************************************
